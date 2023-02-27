@@ -4,6 +4,7 @@ import kz.evo.service.Quoter;
 import org.springframework.beans.factory.support.PropertiesBeanDefinitionReader;
 import org.springframework.context.support.GenericApplicationContext;
 
+// Deprecated propertyContext для property конфигурации
 public class PropertyFileApplicationContext extends GenericApplicationContext {
     public PropertyFileApplicationContext(String fileName) {
         // такой же, как и xmlBeanDefinitionReader, но сканирует properties файлы
@@ -13,7 +14,7 @@ public class PropertyFileApplicationContext extends GenericApplicationContext {
 
         System.out.println("found " + beanNum + " beans");
 
-        // последнее, что делает context - это рефреш (когда закончился процесс добавления бинов)
+        // последнее, что делает context - это refresh (когда закончился процесс добавления бинов)
         refresh();
     }
 

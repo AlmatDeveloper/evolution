@@ -12,12 +12,12 @@ import java.lang.reflect.Proxy;
 import java.util.HashMap;
 import java.util.Map;
 
-// Первый метод работает с оригинальным классом
-// Второй метод работает с прокси классом
+// первый метод работает с оригинальным классом
+// второй метод работает с proxy классом
 
-// Если мы настраиваем объект, то логику пишем в первом методе
-// Если мы меняем поведение объекта путем создания прокси, то логику пишем во втором методе
-// Прокси нужно делать после инит метода
+// если мы настраиваем объект, то логику пишем в первом методе
+// если мы меняем поведение объекта путем создания proxy, то логику пишем во втором методе
+// работать с proxy нужно после init метода
 public class ProfilingAnnotationBeanPostProcessor implements BeanPostProcessor {
 
     private Map<String, Class> map = new HashMap<>();
@@ -30,7 +30,7 @@ public class ProfilingAnnotationBeanPostProcessor implements BeanPostProcessor {
                 .registerMBean(profilingController, new ObjectName("profiling", "name", "profilingController"));
     }
 
-    // Все аннотации ищутся в оригинальном классе
+    // все аннотации ищутся в оригинальном классе, так как они не попадают в proxy классы
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
         Class<?> beanClass = bean.getClass();
@@ -42,13 +42,13 @@ public class ProfilingAnnotationBeanPostProcessor implements BeanPostProcessor {
         return bean;
     }
 
-    // Логику пишем во втором методе, чтобы быть уверенными, что меняем именно тот бин который нам нужен
-    // В данный метод не попадает оригинальный класс с аннотациями.
-    // Попадает прокси класс в котором нет аннотаций
+    // логику пишем во втором методе, чтобы быть уверенными, что меняем именно тот бин который нам нужен
+    // в данный метод не попадает оригинальный класс с аннотациями
+    // попадает proxy класс в котором нет аннотаций
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        // Используется Map, так как есть возможность что спринг нам отдаст не тот прокси
-        // отвязываемся от логики getClass
+        // Используется Map, так как есть возможность что spring нам отдаст не тот proxy
+        // Отвязываемся от логики getClass, так как все что нам нужно мы сохранили в map
         Class beanClass = map.get(beanName);
 
         if (beanClass != null) {
@@ -69,13 +69,13 @@ public class ProfilingAnnotationBeanPostProcessor implements BeanPostProcessor {
                 }
             });
         }
-        // статичный метод который сгенерит на лету новый объект
-        // имеет 3 аргумента: 1 - classLoader который загрузит в HEAP новый объект
+
+        // статичный метод который сгенерит на лету новый объект имеет 3 аргумента:
+        // 1 - classLoader который загрузит в HEAP новый proxy объект
         // (должен грузить именно тот ClassLoader который загружал предыдущий bean)
+        // любой класс знает какой ClassLoader его загрузил
         // 2 - список интерфейсов который должен имплементировать тот класс который сгенерится на лету
         // 3 - инкапсулирует логику которая попадет во все методы класса который сгенерится на лету
-
-        // Любой класс знает какой ClassLoader его загрузил
 
         return bean;
     }

@@ -10,8 +10,9 @@ import java.util.Map;
 
 import static java.time.LocalTime.now;
 
-// Для написания своего скоупа. В нашем примере скоуп по времени.
-// Прописать в xml для регистрации не получится
+// данный класс необходим для написания своего scope
+// в нашем примере scope по времени
+// прописать в xml для регистрации не получится
 public class PeriodicalScopeConfigurer implements Scope {
 
     Map<String, Pair<LocalTime, Object>> map = new HashMap<>();

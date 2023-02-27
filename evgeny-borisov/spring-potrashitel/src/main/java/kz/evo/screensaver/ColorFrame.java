@@ -1,13 +1,14 @@
 package kz.evo.screensaver;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
-//@Component
-//@Scope(scopeName = "prototype")
+// @Component
+// @Scope(scopeName = "prototype")
 public abstract class ColorFrame extends JFrame {
 //    @Autowired
 //    private Color color;
@@ -24,6 +25,10 @@ public abstract class ColorFrame extends JFrame {
         getContentPane().setBackground(getColor());
         repaint();
     }
+
+//    protected Color getColor() {
+//        return color;
+//    }
 
     protected abstract Color getColor();
 }

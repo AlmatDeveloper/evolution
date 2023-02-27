@@ -1,4 +1,4 @@
-package kz.evo.cl;
+package kz.evo.al;
 
 import kz.evo.annotation.PostProxy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,21 +10,26 @@ import org.springframework.context.event.ContextRefreshedEvent;
 
 import java.lang.reflect.Method;
 
-// Инжектить Spring в Spring - нормально, инжектить Spring в свои бины - плохо
-// Можно выбирать нужный Event, чтобы не проверять каждый раз (instanceof)
-public class PostProxyAnnotationContextListener implements ApplicationListener<ContextRefreshedEvent> {
+// внедрять spring в spring - нормально, внедрять spring в свой bean - плохо (пример - внедрить context в свой bean)
+// можно выбирать нужный еvent, чтобы не проверять каждый раз на нужный (instanceof)
 
+// используем ApplicationListener для вызова метода, после создания всех proxy классов (пример - Transactional)
+public class PostProxyAnnotationApplicationListener implements ApplicationListener<ContextRefreshedEvent> {
+
+    // внедрение spring компонента в spring
+    // из configurableListableBeanFactory можно достать
     @Autowired
     private ConfigurableListableBeanFactory configurableListableBeanFactory;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
+        // каждый event знает свой контекст
         ApplicationContext applicationContext = event.getApplicationContext();
         String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
 
-        // Находить по названию бина объект и делать getClass не получится, т.к. это уже прокси
+        // находить по названию bean объект и делать getClass не получится, т.к. это уже прокси
         for (String beanDefinitionName : beanDefinitionNames) {
-            // искать описания бина по имени через фабрику
+            // искать описания bean по имени через фабрику
             BeanDefinition beanDefinition = configurableListableBeanFactory.getBeanDefinition(beanDefinitionName);
 
             // найти оригинальное название класса
@@ -35,9 +40,9 @@ public class PostProxyAnnotationContextListener implements ApplicationListener<C
 
                 for (Method method : originalClass.getMethods()) {
                     if (method.isAnnotationPresent(PostProxy.class)) {
-                        // method.invoke(); не сработает т.к. это вызов метода оригинального класса, нам нужен proxy класс (бин)
+                        // method.invoke() не сработает т.к. это вызов метода оригинального класса, нам нужен proxy класс (бин)
                         Object bean = applicationContext.getBean(beanDefinitionName);
-                        // это прокси, т.к. вызываем из бина
+                        // это proxy, т.к. вызываем из bean
                         bean.getClass().getMethod(method.getName(), method.getParameterTypes()).invoke(bean);
                     }
                 }
