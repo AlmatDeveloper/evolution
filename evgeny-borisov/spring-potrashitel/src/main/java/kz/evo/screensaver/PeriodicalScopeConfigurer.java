@@ -23,7 +23,7 @@ public class PeriodicalScopeConfigurer implements Scope {
             Pair<LocalTime, Object> localTimeObjectPair = map.get(name);
             int secondsSinceLastRequest = now().getSecond() - localTimeObjectPair.getKey().getSecond();
 
-            if (secondsSinceLastRequest > 5) {
+            if (secondsSinceLastRequest > 3) {
                 map.put(name, new Pair<>(now(), objectFactory.getObject()));
             }
         } else {

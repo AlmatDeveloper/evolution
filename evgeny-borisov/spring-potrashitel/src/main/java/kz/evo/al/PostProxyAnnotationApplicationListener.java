@@ -14,10 +14,10 @@ import java.lang.reflect.Method;
 // можно выбирать нужный еvent, чтобы не проверять каждый раз на нужный (instanceof)
 
 // используем ApplicationListener для вызова метода, после создания всех proxy классов (пример - Transactional)
+// пример - наполнить кэш данными
 public class PostProxyAnnotationApplicationListener implements ApplicationListener<ContextRefreshedEvent> {
 
     // внедрение spring компонента в spring
-    // из configurableListableBeanFactory можно достать
     @Autowired
     private ConfigurableListableBeanFactory configurableListableBeanFactory;
 

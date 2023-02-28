@@ -15,7 +15,7 @@ public class Main {
     }
 }
 
-// BeanDefinition (BD) - объекты, которые хранят информацию о bean.
+// BeanDefinition (BD) - объекты, которые хранят информацию о bean
 // обычная Map, id bean - декларация(из какого класса создавать, имеет ли init метод, какие property, ...)
 
 // setter - обязательны для property, чтобы spring понимал куда вставлять значения

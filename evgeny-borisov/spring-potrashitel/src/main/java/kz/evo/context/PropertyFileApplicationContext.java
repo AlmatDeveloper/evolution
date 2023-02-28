@@ -14,7 +14,7 @@ public class PropertyFileApplicationContext extends GenericApplicationContext {
 
         System.out.println("found " + beanNum + " beans");
 
-        // последнее, что делает context - это refresh (когда закончился процесс добавления бинов)
+        // последнее, что делает context - это refresh (когда закончился процесс добавления bean - ов)
         refresh();
     }
 
