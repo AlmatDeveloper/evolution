@@ -10,9 +10,9 @@ import java.util.Map;
 
 import static java.time.LocalTime.now;
 
-// данный класс необходим для написания своего scope
-// в нашем примере scope по времени
-// прописать в xml для регистрации не получится
+// РґР°РЅРЅС‹Р№ РєР»Р°СЃСЃ РЅРµРѕР±С…РѕРґРёРј РґР»СЏ РЅР°РїРёСЃР°РЅРёСЏ СЃРІРѕРµРіРѕ scope
+// РІ РЅР°С€РµРј РїСЂРёРјРµСЂРµ scope РїРѕ РІСЂРµРјРµРЅРё
+// РїСЂРѕРїРёСЃР°С‚СЊ РІ xml РґР»СЏ СЂРµРіРёСЃС‚СЂР°С†РёРё РЅРµ РїРѕР»СѓС‡РёС‚СЃСЏ
 public class PeriodicalScopeConfigurer implements Scope {
 
     Map<String, Pair<LocalTime, Object>> map = new HashMap<>();

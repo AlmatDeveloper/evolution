@@ -6,18 +6,18 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 
-// BeanFactoryPostProcessor используем, если хотим изменить поведение bean до обработки BeanFactory
-// меняем напрямую в BeanDefinition
+// BeanFactoryPostProcessor РёСЃРїРѕР»СЊР·СѓРµРј, РµСЃР»Рё С…РѕС‚РёРј РёР·РјРµРЅРёС‚СЊ РїРѕРІРµРґРµРЅРёРµ bean РґРѕ РѕР±СЂР°Р±РѕС‚РєРё BeanFactory
+// РјРµРЅСЏРµРј РЅР°РїСЂСЏРјСѓСЋ РІ BeanDefinition
 public class DeprecatedClassAnnotationBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
         String[] beanDefinitionNames = beanFactory.getBeanDefinitionNames();
 
         for (String beanDefinitionName : beanDefinitionNames) {
-            // искать описания bean по имени через фабрику
+            // РёСЃРєР°С‚СЊ РѕРїРёСЃР°РЅРёСЏ bean РїРѕ РёРјРµРЅРё С‡РµСЂРµР· С„Р°Р±СЂРёРєСѓ
             BeanDefinition beanDefinition = beanFactory.getBeanDefinition(beanDefinitionName);
 
-            // найти оригинальное название класса
+            // РЅР°Р№С‚Рё РѕСЂРёРіРёРЅР°Р»СЊРЅРѕРµ РЅР°Р·РІР°РЅРёРµ РєР»Р°СЃСЃР°
             String beanClassName = beanDefinition.getBeanClassName();
 
             try {
@@ -26,7 +26,7 @@ public class DeprecatedClassAnnotationBeanFactoryPostProcessor implements BeanFa
                 DeprecatedClass annotation = originalClass.getAnnotation(DeprecatedClass.class);
 
                 if (annotation != null) {
-                    // устанавливаем название нового класса
+                    // СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј РЅР°Р·РІР°РЅРёРµ РЅРѕРІРѕРіРѕ РєР»Р°СЃСЃР°
                     beanDefinition.setBeanClassName(annotation.newImpl().getName());
                 }
             } catch (Exception e) {

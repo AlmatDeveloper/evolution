@@ -4,17 +4,17 @@ import kz.evo.service.Quoter;
 import org.springframework.beans.factory.support.PropertiesBeanDefinitionReader;
 import org.springframework.context.support.GenericApplicationContext;
 
-// Deprecated propertyContext для property конфигурации
+// Deprecated propertyContext РґР»СЏ property РєРѕРЅС„РёРіСѓСЂР°С†РёРё
 public class PropertyFileApplicationContext extends GenericApplicationContext {
     public PropertyFileApplicationContext(String fileName) {
-        // такой же, как и xmlBeanDefinitionReader, но сканирует properties файлы
+        // С‚Р°РєРѕР№ Р¶Рµ, РєР°Рє Рё xmlBeanDefinitionReader, РЅРѕ СЃРєР°РЅРёСЂСѓРµС‚ properties С„Р°Р№Р»С‹
         PropertiesBeanDefinitionReader propertiesBeanDefinitionReader = new PropertiesBeanDefinitionReader(this);
-        // загружаем все beanDefinition из файла
+        // Р·Р°РіСЂСѓР¶Р°РµРј РІСЃРµ beanDefinition РёР· С„Р°Р№Р»Р°
         int beanNum = propertiesBeanDefinitionReader.loadBeanDefinitions(fileName);
 
         System.out.println("found " + beanNum + " beans");
 
-        // последнее, что делает context - это refresh (когда закончился процесс добавления бинов)
+        // РїРѕСЃР»РµРґРЅРµРµ, С‡С‚Рѕ РґРµР»Р°РµС‚ context - СЌС‚Рѕ refresh (РєРѕРіРґР° Р·Р°РєРѕРЅС‡РёР»СЃСЏ РїСЂРѕС†РµСЃСЃ РґРѕР±Р°РІР»РµРЅРёСЏ Р±РёРЅРѕРІ)
         refresh();
     }
 

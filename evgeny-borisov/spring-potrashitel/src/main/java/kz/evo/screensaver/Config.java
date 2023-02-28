@@ -9,34 +9,34 @@ import java.util.Random;
 @ComponentScan(basePackages = "kz.evo.screensaver")
 public class Config {
     @Bean
-    // вызывать prototype в singleton
-    // 1 - способ через proxyMode:
-    // при любом вызове будет вызываться новый бин (даже если вызывать в одном месте (методе))
+    // РІС‹Р·С‹РІР°С‚СЊ prototype РІ singleton
+    // 1 - СЃРїРѕСЃРѕР± С‡РµСЂРµР· proxyMode:
+    // РїСЂРё Р»СЋР±РѕРј РІС‹Р·РѕРІРµ Р±СѓРґРµС‚ РІС‹Р·С‹РІР°С‚СЊСЃСЏ РЅРѕРІС‹Р№ Р±РёРЅ (РґР°Р¶Рµ РµСЃР»Рё РІС‹Р·С‹РІР°С‚СЊ РІ РѕРґРЅРѕРј РјРµСЃС‚Рµ (РјРµС‚РѕРґРµ))
     // @Scope(value = "prototype", proxyMode = ScopedProxyMode.TARGET_CLASS)
-    // 2 - способ через абстрактный класс (правильный метод)
+    // 2 - СЃРїРѕСЃРѕР± С‡РµСЂРµР· Р°Р±СЃС‚СЂР°РєС‚РЅС‹Р№ РєР»Р°СЃСЃ (РїСЂР°РІРёР»СЊРЅС‹Р№ РјРµС‚РѕРґ)
     // @Scope("prototype")
     //
-    // кастомный scope - periodical
+    // РєР°СЃС‚РѕРјРЅС‹Р№ scope - periodical
     @Scope("periodical")
     public Color color() {
         Random random = new Random();
         return new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255));
     }
 
-    // вызывать prototype в singleton, 2 - способ через абстрактный класс
+    // РІС‹Р·С‹РІР°С‚СЊ prototype РІ singleton, 2 - СЃРїРѕСЃРѕР± С‡РµСЂРµР· Р°Р±СЃС‚СЂР°РєС‚РЅС‹Р№ РєР»Р°СЃСЃ
     @Bean
     public ColorFrame colorFrame() {
         return new ColorFrame() {
             @Override
             protected Color getColor() {
-                // это не вызов метода, а именно вызов самого bean
+                // СЌС‚Рѕ РЅРµ РІС‹Р·РѕРІ РјРµС‚РѕРґР°, Р° РёРјРµРЅРЅРѕ РІС‹Р·РѕРІ СЃР°РјРѕРіРѕ bean
                 return color();
             }
         };
     }
 
     public static void main(String[] args) throws InterruptedException {
-        // передаем наш конфиг, который попросит просканировать (крота) весь пакет и найдет еще бин проаннотированный аннотацией компонент
+        // РїРµСЂРµРґР°РµРј РЅР°С€ РєРѕРЅС„РёРі, РєРѕС‚РѕСЂС‹Р№ РїРѕРїСЂРѕСЃРёС‚ РїСЂРѕСЃРєР°РЅРёСЂРѕРІР°С‚СЊ (РєСЂРѕС‚Р°) РІРµСЃСЊ РїР°РєРµС‚ Рё РЅР°Р№РґРµС‚ РµС‰Рµ Р±РёРЅ РїСЂРѕР°РЅРЅРѕС‚РёСЂРѕРІР°РЅРЅС‹Р№ Р°РЅРЅРѕС‚Р°С†РёРµР№ РєРѕРјРїРѕРЅРµРЅС‚
         AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(Config.class);
 
         while (true) {

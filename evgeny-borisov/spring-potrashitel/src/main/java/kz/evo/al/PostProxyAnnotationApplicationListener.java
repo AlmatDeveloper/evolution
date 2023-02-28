@@ -10,29 +10,29 @@ import org.springframework.context.event.ContextRefreshedEvent;
 
 import java.lang.reflect.Method;
 
-// внедрять spring в spring - нормально, внедрять spring в свой bean - плохо (пример - внедрить context в свой bean)
-// можно выбирать нужный еvent, чтобы не проверять каждый раз на нужный (instanceof)
+// РІРЅРµРґСЂСЏС‚СЊ spring РІ spring - РЅРѕСЂРјР°Р»СЊРЅРѕ, РІРЅРµРґСЂСЏС‚СЊ spring РІ СЃРІРѕР№ bean - РїР»РѕС…Рѕ (РїСЂРёРјРµСЂ - РІРЅРµРґСЂРёС‚СЊ context РІ СЃРІРѕР№ bean)
+// РјРѕР¶РЅРѕ РІС‹Р±РёСЂР°С‚СЊ РЅСѓР¶РЅС‹Р№ Рµvent, С‡С‚РѕР±С‹ РЅРµ РїСЂРѕРІРµСЂСЏС‚СЊ РєР°Р¶РґС‹Р№ СЂР°Р· РЅР° РЅСѓР¶РЅС‹Р№ (instanceof)
 
-// используем ApplicationListener для вызова метода, после создания всех proxy классов (пример - Transactional)
+// РёСЃРїРѕР»СЊР·СѓРµРј ApplicationListener РґР»СЏ РІС‹Р·РѕРІР° РјРµС‚РѕРґР°, РїРѕСЃР»Рµ СЃРѕР·РґР°РЅРёСЏ РІСЃРµС… proxy РєР»Р°СЃСЃРѕРІ (РїСЂРёРјРµСЂ - Transactional)
 public class PostProxyAnnotationApplicationListener implements ApplicationListener<ContextRefreshedEvent> {
 
-    // внедрение spring компонента в spring
-    // из configurableListableBeanFactory можно достать
+    // РІРЅРµРґСЂРµРЅРёРµ spring РєРѕРјРїРѕРЅРµРЅС‚Р° РІ spring
+    // РёР· configurableListableBeanFactory РјРѕР¶РЅРѕ РґРѕСЃС‚Р°С‚СЊ
     @Autowired
     private ConfigurableListableBeanFactory configurableListableBeanFactory;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        // каждый event знает свой контекст
+        // РєР°Р¶РґС‹Р№ event Р·РЅР°РµС‚ СЃРІРѕР№ РєРѕРЅС‚РµРєСЃС‚
         ApplicationContext applicationContext = event.getApplicationContext();
         String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
 
-        // находить по названию bean объект и делать getClass не получится, т.к. это уже прокси
+        // РЅР°С…РѕРґРёС‚СЊ РїРѕ РЅР°Р·РІР°РЅРёСЋ bean РѕР±СЉРµРєС‚ Рё РґРµР»Р°С‚СЊ getClass РЅРµ РїРѕР»СѓС‡РёС‚СЃСЏ, С‚.Рє. СЌС‚Рѕ СѓР¶Рµ РїСЂРѕРєСЃРё
         for (String beanDefinitionName : beanDefinitionNames) {
-            // искать описания bean по имени через фабрику
+            // РёСЃРєР°С‚СЊ РѕРїРёСЃР°РЅРёСЏ bean РїРѕ РёРјРµРЅРё С‡РµСЂРµР· С„Р°Р±СЂРёРєСѓ
             BeanDefinition beanDefinition = configurableListableBeanFactory.getBeanDefinition(beanDefinitionName);
 
-            // найти оригинальное название класса
+            // РЅР°Р№С‚Рё РѕСЂРёРіРёРЅР°Р»СЊРЅРѕРµ РЅР°Р·РІР°РЅРёРµ РєР»Р°СЃСЃР°
             String beanClassName = beanDefinition.getBeanClassName();
 
             try {
@@ -40,9 +40,9 @@ public class PostProxyAnnotationApplicationListener implements ApplicationListen
 
                 for (Method method : originalClass.getMethods()) {
                     if (method.isAnnotationPresent(PostProxy.class)) {
-                        // method.invoke() не сработает т.к. это вызов метода оригинального класса, нам нужен proxy класс (бин)
+                        // method.invoke() РЅРµ СЃСЂР°Р±РѕС‚Р°РµС‚ С‚.Рє. СЌС‚Рѕ РІС‹Р·РѕРІ РјРµС‚РѕРґР° РѕСЂРёРіРёРЅР°Р»СЊРЅРѕРіРѕ РєР»Р°СЃСЃР°, РЅР°Рј РЅСѓР¶РµРЅ proxy РєР»Р°СЃСЃ (Р±РёРЅ)
                         Object bean = applicationContext.getBean(beanDefinitionName);
-                        // это proxy, т.к. вызываем из bean
+                        // СЌС‚Рѕ proxy, С‚.Рє. РІС‹Р·С‹РІР°РµРј РёР· bean
                         bean.getClass().getMethod(method.getName(), method.getParameterTypes()).invoke(bean);
                     }
                 }

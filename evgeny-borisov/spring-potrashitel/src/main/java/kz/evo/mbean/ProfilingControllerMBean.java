@@ -1,6 +1,6 @@
 package kz.evo.mbean;
 
-// создание MBean
+// СЃРѕР·РґР°РЅРёРµ MBean
 public interface ProfilingControllerMBean {
     void setEnabled(boolean enabled);
 }

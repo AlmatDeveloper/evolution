@@ -5,13 +5,13 @@ import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.stereotype.Component;
 
-// любой кастомный scope будет регистрировать этот класс
-// в нашем же примере регистрируем scope periodical
+// Р»СЋР±РѕР№ РєР°СЃС‚РѕРјРЅС‹Р№ scope Р±СѓРґРµС‚ СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°С‚СЊ СЌС‚РѕС‚ РєР»Р°СЃСЃ
+// РІ РЅР°С€РµРј Р¶Рµ РїСЂРёРјРµСЂРµ СЂРµРіРёСЃС‚СЂРёСЂСѓРµРј scope periodical
 @Component
 public class CustomScopeRegistryBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-        // добавляем новые виды scope, здесь же periodical scope
+        // РґРѕР±Р°РІР»СЏРµРј РЅРѕРІС‹Рµ РІРёРґС‹ scope, Р·РґРµСЃСЊ Р¶Рµ periodical scope
         beanFactory.registerScope("periodical", new PeriodicalScopeConfigurer());
     }
 }
