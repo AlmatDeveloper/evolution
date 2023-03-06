@@ -1,12 +1,15 @@
 package kz.evo;
 
 import kz.evo.service.Quoter;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContextExtensionsKt;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Main {
     public static void main(String[] args) throws Exception {
         // есть множество реализаций контекста (xml, properties, annotation, ...)
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("context.xml");
+//        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext("context.xml");
         context.getBean(Quoter.class).say();
 //        while (true) {
 //            Thread.sleep(1000);
