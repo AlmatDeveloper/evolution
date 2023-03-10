@@ -1,4 +1,4 @@
-package kz.evo;
+package kz.evo.ch3;
 
 // двоичный поиск работает в отсортированном массиве
 public class chapter3_binary_search {

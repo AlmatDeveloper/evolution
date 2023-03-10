@@ -1,4 +1,4 @@
-package kz.evo;
+package kz.evo.ch4;
 
 import java.util.Arrays;
 

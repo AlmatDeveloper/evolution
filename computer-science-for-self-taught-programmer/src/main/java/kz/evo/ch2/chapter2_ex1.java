@@ -1,4 +1,4 @@
-package kz.evo;
+package kz.evo.ch2;
 
 // выведите числа от 1 до 10 рекурсивно
 public class chapter2_ex1 {
