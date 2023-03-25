@@ -1,4 +1,4 @@
-package kz.evo.chapter3;
+package kz.evo;
 
 import org.junit.jupiter.api.Test;
 
@@ -129,6 +129,14 @@ class Chapter3Test {
         assertArrayEquals(array2, array3);
         assertArrayEquals(array4, array5);
         assertArrayEquals(array6, array7);
+    }
+
+    // var необходим для локальных пиременных
+    @Test
+    public void var() {
+        var v = 10;
+        var v1 = new int[5];
+        var v2 = 10.0;
     }
 
 }
