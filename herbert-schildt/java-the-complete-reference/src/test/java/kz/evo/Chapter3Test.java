@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class Chapter3Test {
 
+    // тип char может быть только положительным
     @Test
     public void charIsPositiveNumber() {
         char c = 'a';
@@ -63,7 +64,8 @@ class Chapter3Test {
         char c1 = (char) s;
         char c2 = (char) i;
 
-        assertEquals(c, c1, c2);
+        assertEquals(c2, c1);
+        assertEquals(c1, c);
     }
 
     @Test
@@ -125,10 +127,14 @@ class Chapter3Test {
         int[][] array6 = {{1, 2, 3}, {1, 2, 3}};
         int array7[][] = {{1, 2, 3}, {1, 2, 3}};
 
+        int[] array8 = new int[]{};
+        int array9[] = new int[]{};
+
         assertArrayEquals(array, array1);
         assertArrayEquals(array2, array3);
         assertArrayEquals(array4, array5);
         assertArrayEquals(array6, array7);
+        assertArrayEquals(array8, array9);
     }
 
     // var необходим для локальных пиременных

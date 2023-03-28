@@ -88,15 +88,18 @@ public class Chapter5Test {
         }
 
         // как пример выйти из обоих циклов
+//        ifMarker: if (true) {
         outer:
         for (int i = 0; i < 4; i++) {
             System.out.print("Проход " + i + ": ");
             for (int j = 0; j < 11; j++) {
                 if (j * i == 20) break outer; // выйти из обоих циклов
+//                    if (j * i == 20) break ifMarker; // выйти из обоих циклов
                 System.out.print(j + " ");
             }
 //            System.out.println("Этo выводиться не будет.");
         }
         System.out.println("Циклы завершены.");
+//        }
     }
 }
