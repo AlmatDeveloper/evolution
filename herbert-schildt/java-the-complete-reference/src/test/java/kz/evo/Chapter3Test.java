@@ -18,6 +18,7 @@ class Chapter3Test {
         assertEquals(i, 194);
     }
 
+    // есть возможность разделять числа нижним подчеркиванием(произвольного количества)
     @Test
     public void numbersCanBeSnakeCase() {
         int i = 123_456_789;
@@ -35,6 +36,7 @@ class Chapter3Test {
         assertEquals(d1, d2);
     }
 
+    // дефолтный тип чисел с плавающей точкой - double
     @Test
     public void floatNumberDefaultTypeIsDouble() {
         double d = 789.0;
@@ -43,17 +45,20 @@ class Chapter3Test {
         assertEquals(f, d);
     }
 
+    // локальным блокам можно присваивать маркеры(не является обязательным)
     @Test
     public void blocks() {
         int i = 1;
-        {
+        block: {
             {
                 int i1 = 1;
                 assertEquals(i, i1); // блоки определяют область видимости и жизненный цикл переменной
+                break block;
             }
         }
     }
 
+    // преобразование из числа в символ требует явного каста(даже если char вмещает short, byte)
     @Test
     public void fromNumberToCharNeedExplicitConversion() {
         byte b = 21;
@@ -68,6 +73,7 @@ class Chapter3Test {
         assertEquals(c1, c);
     }
 
+    // преобразование из меньшего диапазона в больший делается явно
     @Test
     public void castingIncompatibleTypes() {
         byte bi;
@@ -91,7 +97,7 @@ class Chapter3Test {
     }
 
     // автоматическое повышение типов в выражениях
-    // byte, short или char автоматически повышаются до int
+    // byte, short или char автоматически повышаются до int(далее по аналогии)
     @Test
     public void automaticTypePromotionInExpressions() {
         byte a = 40;
@@ -137,7 +143,8 @@ class Chapter3Test {
         assertArrayEquals(array8, array9);
     }
 
-    // var необходим для локальных пиременных
+    // var необходим для локальных переменных
+    // при объявлении необходимо так же проинициализировать
     @Test
     public void var() {
         var v = 10;

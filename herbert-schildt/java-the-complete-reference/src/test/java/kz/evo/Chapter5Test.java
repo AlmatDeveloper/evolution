@@ -9,6 +9,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Chapter5Test {
 
+    // в любом операторе можно опустить часть с блоком(кроме switch)
+    // оператор for состоит из 3 частей:
+    // 1 - инициализация, 2 - условие, 3 - итерация(каждый из них может работать независимо друг от друга)
     @Test
     public void loopWithoutBody() {
         int i, j;
@@ -51,6 +54,8 @@ public class Chapter5Test {
 
     }
 
+    // foreach служит только для чтения
+    // менять значения в массиве не предусмотрено
     @Test
     public void foreachNotChangeArray() {
         int[] ints = new int[]{3, 45, 5, 2, 3, 4, 54};
@@ -66,6 +71,7 @@ public class Chapter5Test {
         assertArrayEquals(ints, new int[]{30, 450, 50, 20, 30, 40, 540});
     }
 
+    // к любому оператору можно дать маркер
     @Test
     public void breakWithMarker() {
         boolean b = true;
