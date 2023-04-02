@@ -1,17 +1,21 @@
 package kz.evo.chapter6;
 
 public class Box {
-    private double wight;
-    private double height;
-    private double depth;
+    double width;
+    double height;
+    double depth;
 
-    public static void main(String[] args) {
-        Box box = new Box();
-        box.depth = 100;
-        box.wight = 100;
-        box.height = 100;
+    public Box(double width, double height, double depth) {
+        this.width = width;
+        this.height = height;
+        this.depth = depth;
+    }
 
-        var vol = box.depth * box.height * box.wight;
-        System.out.println("Объем: " + vol);
+    public Box() {
+    }
+
+    // Отобразить объем коробки
+    double volume() {
+        return width * height * depth;
     }
 }
