@@ -26,10 +26,8 @@ class Stack {
         if(top < 0) {
             System.out.println("Стек пуст");
             System.exit(-1);
-        } else {
-            return array[top--];
         }
 
-        return -1;
+        return array[top--];
     }
 }

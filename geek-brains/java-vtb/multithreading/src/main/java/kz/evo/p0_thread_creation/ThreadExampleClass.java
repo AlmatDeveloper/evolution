@@ -1,4 +1,4 @@
-package kz.evo;
+package kz.evo.p0_thread_creation;
 
 // за создание потоков отвечает класс Thread
 // Thread может быть не удобен если класс уже наследуется от другого класса

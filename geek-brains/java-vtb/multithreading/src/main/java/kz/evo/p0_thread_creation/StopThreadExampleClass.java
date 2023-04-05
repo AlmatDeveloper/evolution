@@ -1,4 +1,4 @@
-package kz.evo;
+package kz.evo.p0_thread_creation;
 
 // поток можно принудительно остановить
 public class StopThreadExampleClass {

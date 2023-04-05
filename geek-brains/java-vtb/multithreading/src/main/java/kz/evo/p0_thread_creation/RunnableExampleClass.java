@@ -1,4 +1,4 @@
-package kz.evo;
+package kz.evo.p0_thread_creation;
 
 public class RunnableExampleClass implements Runnable {
     @Override

@@ -12,7 +12,7 @@ public class SyncStaticExampleClass {
         new Thread(SyncStaticExampleClass::classMethod).start();
 
         var syncStaticExampleClass = new SyncStaticExampleClass();
-        //non static
+        // non static
 //        new Thread(syncStaticExampleClass::objectMethod).start();
 //        new Thread(syncStaticExampleClass::objectMethod).start();
     }

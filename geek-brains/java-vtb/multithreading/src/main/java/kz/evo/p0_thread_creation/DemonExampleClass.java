@@ -1,4 +1,4 @@
-package kz.evo;
+package kz.evo.p0_thread_creation;
 
 // java приложение работает пока есть хотя бы один поток
 // потоки могут быть обычными, а так же демонами
@@ -25,7 +25,7 @@ public class DemonExampleClass {
         // активен ли поток
         thread.isAlive();
         // чем выше приоритет тем чаще ОС будет переключаться на этот поток
-        thread.setPriority(33);
+        thread.setPriority(5);
         // при попытке второй раз вызвать метод старт после остановки потока - получим ошибку
         thread.start();
 

@@ -1,6 +1,6 @@
-package kz.evo;
+package kz.evo.p0_thread_creation;
 
-// если логика потока проста то можно использовать анонимные внутренние классы
+// если логика потока проста, то можно использовать анонимные внутренние классы
 public class AnonymousExampleClass {
     public static void main(String[] args) {
         System.out.println("main start");
