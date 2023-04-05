@@ -16,16 +16,25 @@ public class DemonExampleClass {
                     e.printStackTrace();
                 }
             }
+
+            while (true) {
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                System.out.println("time - " + time);
+            }
         });
 
-        // потоки демоны работают до тех пор пока работает хотя бы один поток в приложении
+        // потоки демоны работают до тех пор, пока работает хотя бы один поток в приложении
         thread.setDaemon(true);
         // получить статус потока(не имеет смысла отталкиваться от статуса так как он может быстро поменяться)
         thread.getState();
         // активен ли поток
         thread.isAlive();
         // чем выше приоритет тем чаще ОС будет переключаться на этот поток
-        thread.setPriority(5);
+//        thread.setPriority(5);
         // при попытке второй раз вызвать метод старт после остановки потока - получим ошибку
         thread.start();
 

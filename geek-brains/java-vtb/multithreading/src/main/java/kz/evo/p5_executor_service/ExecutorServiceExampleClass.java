@@ -2,7 +2,7 @@ package kz.evo.p5_executor_service;
 
 import java.util.concurrent.*;
 
-// executorService основные  виды
+// executorService основные виды
 // 1 - single пул из одного потока
 // 2 - fixed создает фиксированное количество потоков
 // 3 - cached создает потоки по мере поступления задач

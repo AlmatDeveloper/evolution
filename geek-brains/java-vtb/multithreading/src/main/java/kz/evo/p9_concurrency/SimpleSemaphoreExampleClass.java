@@ -4,7 +4,6 @@ import java.util.concurrent.Semaphore;
 
 // если у нас есть критическая секция куда нежно пустить несколько потоков, блок synchronized не подойдет
 // в этом случае можем использовать semaphore
-//
 public class SimpleSemaphoreExampleClass {
     public static void main(String[] args) {
         final Semaphore semaphore = new Semaphore(4);
