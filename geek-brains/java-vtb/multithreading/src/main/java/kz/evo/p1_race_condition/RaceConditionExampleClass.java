@@ -1,7 +1,7 @@
 package kz.evo.p1_race_condition;
 
-// data condition частный случай race condition (соревнуются за данные)
 // race condition - состояние гонки(соревнуются за процессорное время)
+// data condition частный случай race condition (соревнуются за данные)
 // случается когда несколько потоков работают с одной переменной
 // пример: если два потока одновременно считали значение, изменили и хотят вернуть его,
 // то в переменную запишется значение того потока который отработал последним
@@ -25,6 +25,7 @@ public class RaceConditionExampleClass {
         var thread1 = new Thread(() -> {
             for (int i = 0; i < 100; i++) {
                 counter.dec();
+
                 try {
                     Thread.sleep(5);
                 } catch (InterruptedException e) {
@@ -40,7 +41,7 @@ public class RaceConditionExampleClass {
             thread.join();
             thread1.join();
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
         // не всегда будем получать 0

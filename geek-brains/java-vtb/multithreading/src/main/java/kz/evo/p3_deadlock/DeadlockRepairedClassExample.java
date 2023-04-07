@@ -1,15 +1,16 @@
 package kz.evo.p3_deadlock;
 
 // может быть такая ситуация при которой потоки могут заблокироваться(deadlock)
-// из за того что первый поток захочет переключиться на второй монитор
-// но второй монитор заблокирован вторым потоком, который(второй поток) же хочет переключиться на первый монитор
+// из-за того что первый поток захочет переключиться на второй монитор
+// но второй монитор заблокирован вторым потоком,
+// который(второй поток) хочет переключиться на первый монитор
 // как решение: нужно переключаться по мониторам в правильном порядке
 public class DeadlockRepairedClassExample {
     public static void main(String[] args) {
-        String monitor1 = "monitor1";
-        String monitor2 = "monitor2";
+        final String monitor1 = "monitor1";
+        final String monitor2 = "monitor2";
 
-        new Thread(() -> {
+        var thread1 = new Thread(() -> {
             block: synchronized (monitor1) {
                 System.out.println("первый поток в первом мониторе");
                 try {
@@ -18,13 +19,13 @@ public class DeadlockRepairedClassExample {
                     e.printStackTrace();
                 }
                 System.out.println("первый поток пытается переключиться на второй монитор");
-                block1: synchronized (monitor2) {
+                synchronized (monitor2) {
                     System.out.println("это не сработает");
                 }
             }
-        }).start();
+        });
 
-        new Thread(() -> {
+        var thread2 = new Thread(() -> {
             block: synchronized (monitor2) {
                 System.out.println("второй поток во втором мониторе");
                 try {
@@ -33,10 +34,26 @@ public class DeadlockRepairedClassExample {
                     e.printStackTrace();
                 }
                 System.out.println("второй поток пытается переключиться на первый монитор");
-                block1: synchronized (monitor1) {
+                synchronized (monitor1) {
                     System.out.println("это не сработает");
                 }
             }
-        }).start();
+        });
+
+        thread1.start();
+        thread2.start();
+
+//        while (true) {
+//            try {
+//                Thread.sleep(2_000);
+//                System.out.println("thread 1" + thread1.isAlive());
+//                System.out.println("thread 1" + thread1.isInterrupted());
+//
+//                System.out.println("thread 2" + thread2.isAlive());
+//                System.out.println("thread 2" + thread2.isInterrupted());
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 }

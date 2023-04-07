@@ -7,13 +7,13 @@ package kz.evo.p0_thread_creation;
 public class ThreadExampleClass extends Thread {
 
     // описываем что должен делать поток в методе run
-    // в этом примере просто вывод текста с перерывом по 1с
+    // в этом примере просто вывод текста с перерывом по 1 секунде
     @Override
     public void run() {
         for (int i = 0; i < 10; i++) {
             System.out.println("thread - " + i);
             try {
-                Thread.sleep(1000);
+                Thread.sleep(1_000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -21,15 +21,16 @@ public class ThreadExampleClass extends Thread {
     }
 
     public static void main(String[] args) {
-        Thread thread = new ThreadExampleClass();
+        var thread = new ThreadExampleClass();
 
-        // для запуска служит метод start(если вызвать метод run то он выполнится в основном потоке)
+        // для запуска служит метод start
+        // (если вызвать метод run то он выполнится в основном потоке)
         thread.start();
 
         for (int i = 0; i < 10; i++) {
             System.out.println("main - " + i);
             try {
-                Thread.sleep(1000);
+                Thread.sleep(1_000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

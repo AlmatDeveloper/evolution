@@ -16,7 +16,8 @@ public class SimpleLockExampleClass {
 
         // какой-то из потоков дойдет до lock
         // и выполнит код после lock, другие потоки будут ожидать его
-        // далее поток отпускает лок и остальные потоки будут выполнять свой код после кода с локом
+        // далее поток отпускает лок и остальные потоки будут выполнять свой код
+        // после кода с локом
         new Thread(() -> {
             // выполниться параллельно
             System.out.println("THREAD BEFORE LOCK 1");
@@ -30,7 +31,7 @@ public class SimpleLockExampleClass {
             System.out.println("THREAD GET LOCK 1");
 
             try {
-                Thread.sleep(8000);
+                Thread.sleep(8_000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } finally {
@@ -39,22 +40,22 @@ public class SimpleLockExampleClass {
             }
         }).start();
 
-//        new Thread(() -> {
-//            // выполниться параллельно
-//            System.out.println("THREAD BEFORE LOCK 2");
-//            lock.lock();
-//            // выполниться последовательно
-//            System.out.println("THREAD GET LOCK 2");
-//
-//            try {
-//                Thread.sleep(8000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            } finally {
-//                System.out.println("THREAD END 2");
-//                lock.unlock();
-//            }
-//        }).start();
+        new Thread(() -> {
+            // выполниться параллельно
+            System.out.println("THREAD BEFORE LOCK 2");
+            lock.lock();
+            // выполниться последовательно
+            System.out.println("THREAD GET LOCK 2");
+
+            try {
+                Thread.sleep(1_000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                System.out.println("THREAD END 2");
+                lock.unlock();
+            }
+        }).start();
 
         // tryLock возвращает boolean значение
         // поток попытается захватить блок кода, если он занят то пойдет дальше

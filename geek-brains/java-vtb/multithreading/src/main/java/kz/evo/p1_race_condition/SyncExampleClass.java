@@ -20,6 +20,7 @@ public class SyncExampleClass {
         var thread1 = new Thread(() -> {
             for (int i = 0; i < 100; i++) {
                 counter.dec();
+
                 try {
                     Thread.sleep(5);
                 } catch (InterruptedException e) {
@@ -34,11 +35,11 @@ public class SyncExampleClass {
 
         try {
             // работают последовательно
-            // main поток будет ждать вначале первый join, потом второй
+            // main поток будет ждать первый join, потом второй
             thread.join();
             thread1.join();
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
         // будем получать 0, так как есть синхронизация

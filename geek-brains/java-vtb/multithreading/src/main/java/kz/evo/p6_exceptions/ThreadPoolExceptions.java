@@ -3,8 +3,10 @@ package kz.evo.p6_exceptions;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 
-// в случае executorService и callable мы можем отработать ошибку, случившуюся в потоке в main потоке
-// callable прокидывает ошибку дальше (может в main поток) и можем обработать ее в основном потоке
+// в случае executorService и callable мы можем отработать ошибку,
+// случившуюся в потоке в main потоке
+// callable прокидывает ошибку дальше (может в main поток)
+// и можем обработать ее в основном потоке
 public class ThreadPoolExceptions {
     public static void main(String[] args) {
         catchCallable();

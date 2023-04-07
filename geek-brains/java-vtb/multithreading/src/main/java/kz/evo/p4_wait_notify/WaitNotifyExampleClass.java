@@ -1,15 +1,17 @@
 package kz.evo.p4_wait_notify;
 
 // в момент вызова wait() поток освобождает монитор
-// у каждого потока свой stacktrace, вызовы методов каждый поток хранит независимо от других потоков
+// у каждого потока свой stacktrace,
+// вызовы методов каждый поток хранит независимо от других потоков
 // потоки не могут смотреть у друг-друга стек, у каждого свой
 // heap общий (но разделенный для каждого потока)
 public class WaitNotifyExampleClass {
-    // если lock дать другое значение, то потоки отработают параллельно, не дожидаясь друг-друга
-    // так же будет и с Integer (final переменные)
+    // если lock присвоить другое значение, то потоки отработают параллельно,
+    // не дожидаясь друг-друга
+    // так же будет и с Integer (final класс)
     private final String lock = "monitor";
 
-    // отключаем кэширование в ядре процессора
+    // отключаем кэширование в локальной памяти потока
     private volatile char letter = 'A';
     // здесь можно убрать volatile
     // так как мы синхронизируемся по одному объекту
@@ -32,10 +34,14 @@ public class WaitNotifyExampleClass {
                 while (letter != 'A') {
                     System.out.println("wait A");
                     try {
-                        // при следующем пробуждении поток стартанет с места вызова wait
+                        // wait освобождает монитор
+                        // и переводит вызывающий поток в состояние ожидания до тех пор,
+                        // пока другой поток не вызовет метод notify()
+                        // при следующем пробуждении поток возобновит работу
+                        // с места вызова wait
                         lock.wait();
                     } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+                        e.printStackTrace();
                     }
                 }
 
@@ -54,7 +60,7 @@ public class WaitNotifyExampleClass {
                     try {
                         lock.wait();
                     } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+                        e.printStackTrace();
                     }
                 }
 
@@ -73,7 +79,7 @@ public class WaitNotifyExampleClass {
                     try {
                         lock.wait();
                     } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+                        e.printStackTrace();
                     }
                 }
 
@@ -92,7 +98,7 @@ public class WaitNotifyExampleClass {
                     try {
                         lock.wait();
                     } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+                        e.printStackTrace();
                     }
                 }
 

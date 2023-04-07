@@ -32,6 +32,7 @@ public class ExecutorServiceExampleClass {
 
         // нужно обязательно останавливать
         // переходят в состояние termination
+        // перестают принимать новые задачи, и по окончанию выполнения закрывает пул
         executorService.shutdown();
         executorService.close();
 
@@ -57,7 +58,7 @@ public class ExecutorServiceExampleClass {
         try {
             stringFuture.get();
         } catch (ExecutionException | InterruptedException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
         // можно передать список задач и получить список ответов

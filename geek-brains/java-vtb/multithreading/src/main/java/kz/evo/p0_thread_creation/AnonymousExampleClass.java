@@ -5,7 +5,9 @@ public class AnonymousExampleClass {
     public static void main(String[] args) {
         System.out.println("main start");
 
-        Thread thread = new Thread(() -> {
+        var thread = new Thread(() -> {
+            System.out.println("runnable start");
+
             for (int i = 0; i < 10; i++) {
                 System.out.println("runnable - " + i);
                 try {
@@ -14,6 +16,8 @@ public class AnonymousExampleClass {
                     e.printStackTrace();
                 }
             }
+
+            System.out.println("runnable finish");
         });
 
         thread.start();
@@ -22,6 +26,7 @@ public class AnonymousExampleClass {
             // если хотим чтобы main дождался окончания данного потока, то используем join
             // так же есть ожидание по времени
             thread.join();
+//            thread.join(1_000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

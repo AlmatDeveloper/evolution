@@ -1,5 +1,6 @@
 package kz.evo.p0_thread_creation;
 
+// Runnable - интерфейс в котором хранится бизнес логика потока
 public class RunnableExampleClass implements Runnable {
     @Override
     public void run() {
@@ -14,15 +15,12 @@ public class RunnableExampleClass implements Runnable {
     }
 
     public static void main(String[] args) {
-        Thread thread = new Thread(new RunnableExampleClass());
-
-        thread.start();
+        new Thread(new RunnableExampleClass()).start();
 
         for (int i = 0; i < 20; i++) {
-            System.out.println("main - " + i);
-
             try {
                 Thread.sleep(1000);
+                System.out.println("main - " + i);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

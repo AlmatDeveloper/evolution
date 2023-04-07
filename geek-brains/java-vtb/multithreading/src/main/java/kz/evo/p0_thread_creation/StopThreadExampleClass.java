@@ -3,19 +3,19 @@ package kz.evo.p0_thread_creation;
 // поток можно принудительно остановить
 public class StopThreadExampleClass {
     public static void main(String[] args) {
-//        badVersion();
-        goodVersion();
+//        incorrectVersion();
+        correctVersion();
     }
 
-    public static void badVersion() {
-        Thread thread = new Thread(() -> {
+    public static void incorrectVersion() {
+        var thread = new Thread(() -> {
             while (true) {
                 System.out.println("bad tick");
 
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
                 }
             }
         });
@@ -25,15 +25,18 @@ public class StopThreadExampleClass {
         try {
             Thread.sleep(1_000);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
         // метод deprecated, может повредить данные если остановим поток принудительно
         thread.stop();
     }
 
-    public static void goodVersion() {
+    public static void correctVersion() {
         Thread thread = new Thread(() -> {
+            // переменная нужна для отлова ошибки
+            // если interrupt не сработает
+            // тем самым появляется возможность корректно остановить поток
             boolean inter = false;
             while (true) {
                 System.out.println(Thread.currentThread().isInterrupted());
@@ -47,7 +50,9 @@ public class StopThreadExampleClass {
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
-                    // ошибка случается тогда, когда пытаемся вызвать поток, который не может сейчас ответить
+                    // ошибка случается тогда,
+                    // когда пытаемся вызвать поток,
+                    // который не может сейчас ответить
                     inter = true;
                     e.printStackTrace();
                 }
@@ -62,9 +67,7 @@ public class StopThreadExampleClass {
             e.printStackTrace();
         }
 
-        for (int i = 0; i < 50; i++) {
-            // если вызвать interrupt у потока, но в этот момент он не доступен(может во сне), то ничего не произойдет
-            thread.interrupt();
-        }
+        System.out.println("try interrupt");
+        thread.interrupt();
     }
 }
