@@ -11,7 +11,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 // их методы синхронизированы
 public class SyncCollectionsExampleClass {
     public static void main(String[] args) {
-        // при записи в ConcurrentHashMap, блокируется не вся таблица, блокируется только ячейка в которую идет запись
+        // при записи в ConcurrentHashMap, блокируется не вся таблица,
+        // блокируется только ячейка в которую идет запись
         ConcurrentHashMap concurrentHashMap = new ConcurrentHashMap();
 
         // есть возможность завернуть классические коллекции в синхронизированные
@@ -20,7 +21,8 @@ public class SyncCollectionsExampleClass {
         Collections.synchronizedMap(new HashMap<>());
 
         // Чтобы поток мог работать с таким листом каким он видел его в начале
-        // если другие потоки что то меняют в листе то создается новый лист и ссылка листа меняется
+        // если другие потоки что-то меняют в листе,
+        // то создается новый лист и ссылка листа меняется
         // при этом первый поток будет видеть старую версию массива
         CopyOnWriteArrayList<String> strings = new CopyOnWriteArrayList<>();
 

@@ -2,7 +2,8 @@ package kz.evo.p9_concurrency;
 
 import java.util.concurrent.Semaphore;
 
-// если у нас есть критическая секция куда нежно пустить несколько потоков, блок synchronized не подойдет
+// если у нас есть критическая секция куда нужно пустить несколько потоков,
+// блок synchronized не подойдет
 // в этом случае можем использовать semaphore
 public class SimpleSemaphoreExampleClass {
     public static void main(String[] args) {
@@ -26,7 +27,7 @@ public class SimpleSemaphoreExampleClass {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    // как то только поток делает release то счетчик доступов увеличится на 1
+                    // как только поток делает release то счетчик доступов увеличится на 1
                     // и следующий поток проходит в этот блок кода
                     semaphore.release();
                 }

@@ -50,7 +50,10 @@ public class ExecutorServiceExampleClass {
         // Future - информация о выполнении задачи
         // можно передать callable, который будет возвращать какое-то значение
         // можно передать runnable, который будет говорить завершена ли задача или нет
-        var stringFuture = executorService.submit(() -> 456);
+        var stringFuture = executorService.submit(() -> {
+            System.out.println("Dfg");
+            return 324;
+        });
 
         // даже если пул будет обсчитывать задачу некоторое время
         // метод get будет ожидать результата
